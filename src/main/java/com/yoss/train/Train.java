@@ -9,11 +9,14 @@ public class Train implements TrainActions{
 
     private int size = 0;
 
+    public Statistics statistics;
+
     private final List<Wagon> wagons = new ArrayList<>();
     private int current = 0;
 
     public Train(int size) {
         this.size = size;
+        statistics = new Statistics();
         generate();
     }
 
@@ -22,7 +25,7 @@ public class Train implements TrainActions{
         for (int i = 0; i < size; i++) {
             wagons.add(new Wagon(i, r.nextBoolean()));
         }
-        current = r.nextInt(size)+1;
+        current = r.nextInt(size);
     }
 
     private Wagon getCurrentWagon(){
@@ -42,23 +45,27 @@ public class Train implements TrainActions{
     @Override
     public void turnOff() {
         getCurrentWagon().light = false;
+        statistics.switchCount++;
     }
 
     @Override
     public void turnOn() {
         getCurrentWagon().light = true;
+        statistics.switchCount++;
     }
 
     @Override
     public void next() {
-        if(current+1 > size) current=1;
+        if(current+1 >= size) current=0;
         else current +=1;
+        statistics.movesCount++;
     }
 
     @Override
     public void previous() {
-        if(current-1 == 0) current=size-1;
+        if(current-1 < 0) current=size-1;
         else current -=1;
+        statistics.movesCount++;
     }
 
     public class Wagon {
