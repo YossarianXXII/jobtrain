@@ -1,4 +1,4 @@
-package com.yoss.train;
+package com.yoss.train.train;
 
 
 public interface TrainActions {

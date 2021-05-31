@@ -1,4 +1,4 @@
-package com.yoss.train;
+package com.yoss.train.algorithms;
 
 public class Statistics {
     public int movesCount = 0;

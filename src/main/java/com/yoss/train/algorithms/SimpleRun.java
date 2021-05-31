@@ -1,8 +1,10 @@
-package com.yoss.train;
+package com.yoss.train.algorithms;
+
+import com.yoss.train.train.Train;
 
 public class SimpleRun implements CountingAlgorithm{
 
-
+    private Statistics statistics = new Statistics();
     // zazni
     // zapamataj ze 0 je zaznute
     // chod dopredu i, vsetko zhasni
@@ -16,13 +18,23 @@ public class SimpleRun implements CountingAlgorithm{
 
             for (int i = 0; i < stepLimit; i++) {
                 t.next();
-                if(t.isOn()) t.turnOff();
+                this.statistics.movesCount++;
+                if(t.isOn()) {
+                    t.turnOff();
+                    this.statistics.switchCount++;
+                }
             }
             for (int i = 0; i < stepLimit; i++) {
                 t.previous();
+                this.statistics.movesCount++;
             }
             if (!t.isOn()) return stepLimit;
             else stepLimit++;
         }
+    }
+
+    @Override
+    public Statistics getStatistics() {
+        return statistics;
     }
 }
